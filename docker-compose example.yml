@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  # Banco de Dados
+  postgres:
+    image: postgres:15-alpine
+    container_name: ac_postgres
+    restart: always
+    environment:
+      TZ: "America/Sao_Paulo"
+      PGTZ: "America/Sao_Paulo"
+      POSTGRES_DB: ar_condicionado_db
+      POSTGRES_USER: suporte
+      POSTGRES_PASSWORD: suporte@ufg
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  # Painel de Business Intelligence
+  metabase:
+    image: metabase/metabase:latest
+    container_name: ac_metabase
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      MB_DB_TYPE: postgres
+      MB_DB_DBNAME: nome_banco_de_dados
+      MB_DB_PORT: 5432
+      MB_DB_USER: nome_usuario
+      MB_DB_PASS: senha_usuario
+      MB_DB_HOST: postgres
+    depends_on:
+      - postgres
+
+# Apache Grafana
+  grafana:
+    image: grafana/grafana:latest
+    container_name: ac_grafana
+    restart: always
+    ports:
+      - "8088:3000"
+    depends_on:
+      - postgres
+
+volumes:
+  pgdata:

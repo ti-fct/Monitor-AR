@@ -1,0 +1,20 @@
+.env
+.env.*
+!.env.example
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# ---- Ambiente/local ----
+*.log
+Identificação do sistema de ar condicionado - SISTEMAS ALA _A_.csv
+Identificação do sistema de ar condicionado - SISTEMAS ALA _B_.csv
+docker-compose.yml
+api.txt
+
+# ---- SO ----
+.DS_Store
+Thumbs.db
